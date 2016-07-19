@@ -1,0 +1,52 @@
+<project name="Shapes" default="dist" basedir=".">
+  <description>
+    Shape information tool
+  </description>
+  <!-- set global properties for this build -->
+  <property name="src" location="src" />  
+  <property name="build" location="build" />  
+  <property name="test.build" location="build/test" />  
+  <property name="dist" location="dist" />  
+
+  <path id="classpath.test">
+    <pathelement location="/opt/extra/ecdown/.jenkins/war/WEB-INF/lib/junit-4.11.jar"/>
+    <pathelement location="/opt/extra/ecdown/.jenkins/war/WEB-INF/lib/hamcrest-core-1.3.jar"/>
+  </path>
+  <target name="init">
+    <tstamp/>
+    <mkdir dir="${build}" />
+  </target>
+
+  <target name="compile" depends="init" description="compile the source">
+    <javac srcdir="${src}" destdir="${build}" >
+    <classpath>
+        <path refid="classpath.test" />
+    </classpath>
+    </javac>
+  </target>
+
+  <target name="dist" depends="compile" description="generate the distribution">
+    <mkdir dir="${dist}/lib/" />
+    <jar jarfile="${dist}/lib/Shapes-${DSTAMP}.jar" basedir="${build}" />
+  </target>
+
+  <target name="clean" description="clean up">
+    <!-- Delete the ${build} and ${dist} directory trees -->
+    <delete dir="${build}" />
+    <delete dir="${dist}" />
+  </target> 
+
+  <target name="test" description="Junit test" depends="compile">
+    <junit printsummary="on" haltonfailure="yes">
+      <classpath>
+        <path refid="classpath.test" />
+        <pathelement location="${build}" />
+      </classpath>
+      <batchtest>
+        <fileset dir="${src}" includes="**/*Test.java" />
+      </batchtest>
+      <formatter type="plain" usefile="false" />
+    </junit>
+  </target>
+
+</project>
