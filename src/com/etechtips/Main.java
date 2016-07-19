@@ -11,9 +11,21 @@ public class Main {
   } 
   public static void main(String[] args) {
       Main m = new Main();
-      Point[] p = new Point[2];
+      int pointLength = 0;
+      if (args.length == 1) {
+          try {
+            pointLength = Integer.parseInt(args[0]);
+          } catch(NumberFormatException nfe) {
+            System.err.println("Argument must be an integer");
+            System.exit(1);
+          }
+      } else {
+        System.err.println("Number of Points argument required");
+        System.exit(1);
+      }
+      Point[] p = new Point[pointLength];
       Random random = new Random();
-      for (int x = 0;x< 2; x++)
+      for (int x = 0;x< p.length; x++)
       {
           p[x] = new Point(Main.getRandomInt(random,0,100),Main.getRandomInt(random,0,100));
           System.out.print(p[x].to_string() + "\n");
