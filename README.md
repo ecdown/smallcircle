@@ -18,4 +18,9 @@ Sample Call:
 >java com.etechtips.Main 3
 ```
 
+Options added:
+
+  --js  javascript canvas output
+
+  -o offset
 

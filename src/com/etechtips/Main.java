@@ -12,12 +12,28 @@ public class Main {
   public static void main(String[] args) {
       Main m = new Main();
       int pointLength = 0;
-      if (args.length == 1) {
-          try {
-            pointLength = Integer.parseInt(args[0]);
-          } catch(NumberFormatException nfe) {
-            System.err.println("Argument must be an integer");
-            System.exit(1);
+      int argSize = args.length;
+      String outputType = "string";
+      String jsOutput = "";
+      String centerOutput = "";
+      int offset =0;
+      if (args.length >= 1) {
+          for (int i = 0; i < argSize;i++) {
+            if (args[i].equals("--js")) {
+              outputType = "js";
+            }
+            else if (args[i].equals("-o")) {
+              i++;
+              offset = Integer.parseInt(args[i]);
+            }
+            else {
+              try {
+                pointLength = Integer.parseInt(args[i]);
+              } catch(NumberFormatException nfe) {
+                System.err.println("Argument must be an integer");
+                System.exit(1);
+              }
+            }
           }
       } else {
         System.err.println("Number of Points argument required");
@@ -28,10 +44,19 @@ public class Main {
       for (int x = 0;x< p.length; x++)
       {
           p[x] = new Point(Main.getRandomInt(random,0,100),Main.getRandomInt(random,0,100));
-          System.out.print(p[x].to_string() + "\n");
+          if (outputType == "string") {
+            System.out.print(p[x].to_string() + "\n");
+          } else {
+            System.out.print(p[x].to_js(offset) + "\n");
+          }
       } 
 
-      System.out.println(m.circle.encircle(p));
+      m.circle.encircle(p);
+      if (outputType == "string") {
+        System.out.println(m.circle.to_string());
+      } else {
+        System.out.println(m.circle.to_js(offset));
+      }
   }
 
     public static double getRandomDouble(final Random random,
