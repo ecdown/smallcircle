@@ -9,8 +9,8 @@
   <property name="dist" location="dist" />  
 
   <path id="classpath.test">
-    <pathelement location="/opt/extra/ecdown/.jenkins/war/WEB-INF/lib/junit-4.11.jar"/>
-    <pathelement location="/opt/extra/ecdown/.jenkins/war/WEB-INF/lib/hamcrest-core-1.3.jar"/>
+    <pathelement location="/opt/java/junit-4.10.jar"/>
+    <pathelement location="/opt/java/ecdown/.jenkins/war/WEB-INF/lib/hamcrest-core-1.3.jar"/>
   </path>
   <target name="init">
     <tstamp/>
