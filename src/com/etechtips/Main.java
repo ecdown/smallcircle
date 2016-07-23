@@ -16,7 +16,7 @@ public class Main {
       String outputType = "string";
       String jsOutput = "";
       String centerOutput = "";
-      int offset =0;
+      int offset =10;
       if (args.length >= 1) {
           for (int i = 0; i < argSize;i++) {
             if (args[i].equals("--js")) {
@@ -41,10 +41,13 @@ public class Main {
       }
       Point[] p = new Point[pointLength];
       Random random = new Random();
+      if (outputType.equals("js")) {
+        System.out.println("ctx.fillStyle = \"red\";");
+      }
       for (int x = 0;x< p.length; x++)
       {
           p[x] = new Point(Main.getRandomInt(random,0,100),Main.getRandomInt(random,0,100));
-          if (outputType == "string") {
+          if (outputType.equals("string")) {
             System.out.print(p[x].to_string() + "\n");
           } else {
             System.out.print(p[x].to_js(offset) + "\n");
